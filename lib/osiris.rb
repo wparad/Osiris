@@ -5,4 +5,4 @@ STDOUT.sync = true
 STDERR.sync = true
 
 # :nodoc:
-include Stash::DSL
+include Osiris::DSL
