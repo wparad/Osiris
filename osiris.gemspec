@@ -16,7 +16,7 @@ Gem::Specification.new() do |s|
   s.license = 'BSD-3-Clause'
   s.email = ["wparad@gmail.com"]
   s.homepage = 'https://github.com/wparad/Osiris'
-  s.summary = 'A lightweight build and deployment tool wrapper'
+  s.summary = 'A lightweight s3 builder and code deployment tool wrapper'
   s.description = "Osiris is a ruby library to interact with AWS Code Deploy."
   s.files = Dir.glob("{bin,lib}/{**}/{*}", File::FNM_DOTMATCH).select{|f| !(File.basename(f)).match(/^\.+$/)}
   #s.executables = [EXECUTABLE_NAME]
