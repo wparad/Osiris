@@ -1,7 +1,7 @@
 # Osiris
 Ruby gem to create Code Deploy artifacts, publishes them to S3 bucket, and then allows deployment.
 
-[![Gem Version](https://badge.fury.io/rb/Osiris.svg)](http://badge.fury.io/rb/osiris)
+[![Gem Version](https://badge.fury.io/rb/osiris.svg)](https://badge.fury.io/rb/osiris)
 
 [![Build Status](https://travis-ci.org/wparad/Osiris.svg?branch=master)](https://travis-ci.org/wparad/Osiris)
 
