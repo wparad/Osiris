@@ -89,10 +89,10 @@ Sample project using AWS CodeDeploy for on-site premise instances
                 "Sid": "Stmt1445342669000",
                 "Effect": "Allow",
                 "Action": [
-                    "codedeploy:*"
+                    "codedeploy:CreateDeployment"
                 ],
                 "Resource": [
-                    "*"
+                    "arn:aws:codedeploy:REGION:AWS_ACCT:deploymentgroup:APPLICATION_NAME/DEPLOYMENT_GROUP"
                 ]
             },
             {
@@ -103,6 +103,24 @@ Sample project using AWS CodeDeploy for on-site premise instances
                 ],
                 "Resource": [
                     "arn:aws:s3:::s3-deployment-artifacts/*"
+                ]
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "codedeploy:Get*"
+                ],
+                "Resource": [
+                    "arn:aws:codedeploy:REGION:AWS_ACCT:deploymentconfig:CodeDeployDefault.*"
+                ]
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "codedeploy:RegisterApplicationRevision"
+                ],
+                "Resource": [
+                    "arn:aws:codedeploy:REGION:AWS_ACCT:application:APPLICATION_NAME"
                 ]
             }
         ]

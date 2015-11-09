@@ -17,20 +17,22 @@ Setup AWS to allow Code Deploy to work, i.e. decide on S3 buckets, deployment st
     require 'aws-sdk'
     require 'osiris'
 
-    Aws.use_bundled_cert!
     Aws.config.update({
       region: 'eu-west-1',
       credentials: Aws::Credentials.new(ENV['AWS_SECRET'], ENV['AWS_KEY'])
     })
 
-    osiris = Osiris::Deployment.new()
-
+    osiris = Osiris::Deployment.new(true)
+    SERVICE_NAME = 'ServiceName'
+    AWS_APPLICATION_NAME = 'AWS_APPLICATION_NAME'
+    AWS_ENVIRONMENT_NAME = 'AWS_ENVIRONMENT_NAME'
+    AWS_BUCKET_NAME = 's3-deployment-artifacts'
     task :publish do
-      osiris.publish('s3-deployment-artifacts', 'ServiceName', PACKAGE_DIR, TravisBuildTools::Version.to_s)
+      osiris.publish(AWS_BUCKET_NAME, SERVICE_NAME, PACKAGE_DIR, TravisBuildTools::Version.to_s)
     end
 
     task :publish do
-      osiris.deploy()
+      osiris.deploy(AWS_BUCKET_NAME, SERVICE_NAME, VERSION, AWS_APPLICATION_NAME, AWS_ENVIRONMENT_NAME)
     end
 
 Where

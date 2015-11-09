@@ -2,7 +2,8 @@ require 'aws-sdk'
 
 module Osiris
   class Deployment
-    def initialize()
+    def initialize(use_bundled_cert)
+      Aws.use_bundled_cert! if use_bundled_cert
     end
 
     def publish(bucket, relative_path, local_directory, version)
@@ -21,5 +22,31 @@ module Osiris
         end
       end
     end
+    
+    def deploy(bucket, relative_path, version, application_name, deployment_group)
+      begin
+        codedeploy = Aws::CodeDeploy::Client.new()
+        codedeploy.create_deployment({
+          application_name: application_name, # required
+          deployment_group_name: deployment_group,
+          revision: {
+            revision_type: 'S3',
+            s3_location: {
+              bucket: bucket,
+              key: File.join(relative_path, "#{version.to_s}.zip"),
+              bundle_type: 'zip'
+            }
+          },
+          deployment_config_name: 'CodeDeployDefault.OneAtATime',
+          description: "#{application_name}:#{deployment_group} - #{bucket}_#{File.join(relative_path, "#{version.to_s}.zip")}",
+          ignore_application_stop_failures: false
+        })
+      rescue Aws::CodeDeploy::Errors::ServiceError
+        puts "Failed to deploy resource: #{exception}"
+      rescue Exception => exception
+        puts "Failed to connect to AWS: #{exception}"
+      end
+    end
+
   end
 end
