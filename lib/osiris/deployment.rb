@@ -23,7 +23,7 @@ module Osiris
       end
     end
     
-    def deploy(bucket, relative_path, version, application_name, deployment_group)
+    def deploy(bucket, relative_path, version, application_name, deployment_group, description = nil)
       begin
         codedeploy = Aws::CodeDeploy::Client.new()
         codedeploy.create_deployment({
@@ -38,7 +38,7 @@ module Osiris
             }
           },
           deployment_config_name: 'CodeDeployDefault.OneAtATime',
-          description: "#{application_name}:#{deployment_group} - #{bucket}_#{File.join(relative_path, "#{version.to_s}.zip")}",
+          description: description || "Deployed with Osiris, for more information see: https://github.com/wparad/Osiris",
           ignore_application_stop_failures: false
         })
       rescue Aws::CodeDeploy::Errors::ServiceError
