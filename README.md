@@ -32,6 +32,7 @@ Setup AWS to allow Code Deploy to work, i.e. decide on S3 buckets, deployment st
     end
 
     task :publish do
+      #deploy optionally takes an additonal argument which is an AWS CodeDeploy deployment description.
       osiris.deploy(AWS_BUCKET_NAME, SERVICE_NAME, VERSION, AWS_APPLICATION_NAME, AWS_ENVIRONMENT_NAME)
     end
 
