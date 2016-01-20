@@ -41,7 +41,7 @@ module Osiris
           description: description || "Deployed with Osiris, for more information see: https://github.com/wparad/Osiris",
           ignore_application_stop_failures: false
         })
-      rescue Aws::CodeDeploy::Errors::ServiceError
+      rescue Aws::CodeDeploy::Errors::ServiceError => exception
         puts "Failed to deploy resource: #{exception}"
       rescue Exception => exception
         puts "Failed to connect to AWS: #{exception}"
